@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="theme-color" content="#171734">
+ <meta name="description" content="Uma experiência por voz para descobrir barreiras de acessibilidade motora no mundo digital.">
+ <title>Comando Acessível</title><link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+ <header class="site-header"><a href="./" class="brand"><span class="brand-mark" aria-hidden="true">c<span>•</span></span> comando acessível</a><span class="header-note">ACESSIBILIDADE MOTORA</span></header>
+ <main id="main">
+  <section id="intro" class="intro">
+   <div class="intro-copy"><p class="eyebrow">UMA EXPERIÊNCIA PARA OUVIR E AGIR</p><h1>Sua voz abre<br><em>novos caminhos.</em></h1><p class="lead">Três desafios. Nenhum grupo. Descubra as barreiras de uma interface usando uma outra forma de interagir.</p>
+    <button id="activate" class="primary">Ativar microfone <span aria-hidden="true">↗</span></button><button id="intro-alternative" class="text-button">Preciso de outra forma de participar</button>
+    <p class="privacy">O site não grava nem armazena áudio. O navegador pode enviar sua fala ao serviço de reconhecimento. Use somente os comandos da atividade.</p>
+   </div>
+   <div class="voice-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="voice-core"><svg viewBox="0 0 100 100"><rect x="40" y="17" width="20" height="42" rx="10"/><path d="M29 46v5a21 21 0 0 0 42 0v-5M50 72v12M39 84h22"/></svg></div><span class="art-caption">“começar”</span><span class="art-tag">UM COMANDO, UMA POSSIBILIDADE</span></div>
+  </section>
+  <section id="experience" class="experience" hidden>
+   <div class="step-top"><p id="step-label" class="eyebrow"></p><span id="progress-text"></span></div><div class="progress" aria-hidden="true"><div id="progress-fill"></div></div>
+   <div id="screen"></div>
+   <div id="voice-panel" class="voice-panel"><span class="status-dot"></span><span id="status" role="status">Preparando microfone…</span><button id="resume" class="text-button" hidden>Reativar microfone</button></div>
+   <p id="heard" class="heard" aria-live="polite"></p><p id="feedback" class="feedback" role="status"></p>
+   <details id="help"><summary>Microfone ou voz não funcionou?</summary><p>Fale perto do celular e espere aparecer “Ouvindo”. Verifique a permissão do microfone nas configurações do navegador. No iPhone, tente o Safari.</p><button id="fallback" class="secondary">Usar modo alternativo</button><p>Você também pode participar observando e discutindo com a turma. Voz é uma alternativa de acesso, não uma solução para todas as pessoas.</p></details>
+   <form id="alternative" class="alternative" hidden><label for="command">Comando por ditado ou texto</label><p>Toque no microfone do teclado do celular e fale. Este modo exige toques adicionais e também permite digitar.</p><div class="input-row"><input id="command" autocomplete="off" placeholder="Ex.: opção B" maxlength="80"><button class="secondary" type="submit">Enviar</button></div></form>
+  </section>
+  <section class="how"><div><span>01</span><p>Ative o microfone</p></div><div><span>02</span><p>Responda com a voz</p></div><div><span>03</span><p>Descubra uma solução</p></div></section>
+ </main>
+ <footer>Comando Acessível <span>Interfaces diferentes. Mais possibilidades.</span></footer>
+ <noscript>Ative o JavaScript no navegador para participar desta atividade.</noscript><script type="module" src="./app.js"></script>
+</body></html>
