@@ -6,7 +6,13 @@ Dinâmica para seminários de acessibilidade motora na informática. Três desaf
 
 Abra https://LuizFVR.github.io/comando-acessivel/ no navegador do celular. Toque em **Ativar microfone**, permita o acesso e diga **começar**. Responda com **opção A**, **opção B** ou **opção C**. Após a explicação, diga **próximo**. O comando **repetir** mostra as instruções novamente.
 
+Após as perguntas, reorganize uma lista por voz: diga **selecionar tarefa dois**, **mover para cima** e **confirmar** para colocar “Preparar apresentação” em primeiro lugar. Os números correspondem às posições atuais. Também estão disponíveis **mover para baixo**, **desfazer**, **voltar** e **repetir**. Voltar e desfazer restauram a ação anterior, inclusive seleção e resposta.
+
+Cada explicação compara o antes e o depois da interface. A reflexão final é opcional: diga **barulho**, **reconhecimento**, **comandos**, **outro** ou **sem dificuldade**, e depois **próximo**. Nada é enviado ao apresentador ou armazenado.
+
 A atividade não possui classificação ou cronômetro real. As interfaces problemáticas são ilustrações para discussão. A experiência por voz não representa uma simulação de deficiência.
+
+Para projetar o QR Code e acompanhar o roteiro, abra [Área do apresentador](https://luizfvr.github.io/comando-acessivel/apresentador.html).
 
 ## Requisitos e alternativa
 
@@ -21,9 +27,10 @@ O site não grava nem armazena áudio, nomes ou respostas. O reconhecimento de f
 
 1. Explicação e acesso: 3 minutos.
 2. Ativação e teste: 3 minutos.
-3. Três desafios: 8 minutos.
-4. Discussão: 7 minutos.
-5. Conclusão: 4 minutos.
+3. Três desafios com antes e depois: 6 minutos.
+4. Tarefa prática e reflexão individual: 5 minutos.
+5. Discussão: 6 minutos.
+6. Conclusão: 2 minutos.
 
 Perguntas para discussão: onde a voz ajudou? O que dificultou? Quem poderia precisar de outra forma de entrada? Que alternativa vocês ofereceriam além do toque e da voz?
 

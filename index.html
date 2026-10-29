@@ -4,7 +4,7 @@
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="theme-color" content="#171734">
  <meta name="description" content="Uma experiência por voz para descobrir barreiras de acessibilidade motora no mundo digital.">
- <title>Comando Acessível</title><link rel="stylesheet" href="./styles.css">
+ <title>Comando Acessível</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./atividade.css">
 </head>
 <body>
  <header class="site-header"><a href="./" class="brand"><span class="brand-mark" aria-hidden="true">c<span>•</span></span> comando acessível</a><span class="header-note">ACESSIBILIDADE MOTORA</span></header>
@@ -18,7 +18,8 @@
   </section>
   <section id="experience" class="experience" hidden>
    <div class="step-top"><p id="step-label" class="eyebrow"></p><span id="progress-text"></span></div><div class="progress" aria-hidden="true"><div id="progress-fill"></div></div>
-   <div id="screen"></div>
+   <div id="screen" aria-live="polite" aria-atomic="true"></div>
+   <details class="command-help"><summary>Consultar comandos</summary><p id="commands-help"></p></details>
    <div id="voice-panel" class="voice-panel"><span class="status-dot"></span><span id="status" role="status">Preparando microfone…</span><button id="resume" class="text-button" hidden>Reativar microfone</button></div>
    <p id="heard" class="heard" aria-live="polite"></p><p id="feedback" class="feedback" role="status"></p>
    <details id="help"><summary>Microfone ou voz não funcionou?</summary><p>Fale perto do celular e espere aparecer “Ouvindo”. Verifique a permissão do microfone nas configurações do navegador. No iPhone, tente o Safari.</p><button id="fallback" class="secondary">Usar modo alternativo</button><p>Você também pode participar observando e discutindo com a turma. Voz é uma alternativa de acesso, não uma solução para todas as pessoas.</p></details>
@@ -26,6 +27,6 @@
   </section>
   <section class="how"><div><span>01</span><p>Ative o microfone</p></div><div><span>02</span><p>Responda com a voz</p></div><div><span>03</span><p>Descubra uma solução</p></div></section>
  </main>
- <footer>Comando Acessível <span>Interfaces diferentes. Mais possibilidades.</span></footer>
+ <footer>Comando Acessível <a href="./apresentador.html">Área do apresentador</a><span>Interfaces diferentes. Mais possibilidades.</span></footer>
  <noscript>Ative o JavaScript no navegador para participar desta atividade.</noscript><script type="module" src="./app.js"></script>
 </body></html>

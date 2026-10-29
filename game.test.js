@@ -16,7 +16,29 @@ test('percorre três desafios sem pular aprendizagem',()=>{
     assert.deepEqual(reduceGame(s,'a'),s);
     s=reduceGame(s,'next');
   }
-  assert.equal(s.phase,'done');
+  assert.equal(s.phase,'practice');
+});
+test('organiza uma tarefa por voz e só confirma a ordem solicitada',()=>{
+ let s={...createInitialState(),phase:'practice'};
+ assert.equal(reduceGame(s,'confirm'),s);
+ s=reduceGame(s,normalizeCommand('selecionar tarefa dois'));
+ s=reduceGame(s,normalizeCommand('mover para cima'));
+ assert.deepEqual(s.tasks,['preparar','revisar','apresentar']);
+ s=reduceGame(s,'confirm');assert.equal(s.phase,'reflection');
+ s=reduceGame(s,'noise');assert.equal(s.reflection,'noise');
+ s=reduceGame(s,'next');assert.equal(s.phase,'done');
+});
+test('desfazer restaura movimento e voltar restaura a etapa anterior',()=>{
+ let s={...createInitialState(),phase:'practice'};
+ s=reduceGame(s,'select-2');s=reduceGame(s,'up');s=reduceGame(s,'undo');
+ assert.deepEqual(s.tasks,['revisar','preparar','apresentar']);assert.equal(s.selected,'preparar');
+ s=reduceGame(s,'up');s=reduceGame(s,'confirm');s=reduceGame(s,'back');
+ assert.equal(s.phase,'practice');assert.equal(s.tasks[0],'preparar');
+});
+test('movimento no limite e comando inválido preservam estado',()=>{
+ let s={...createInitialState(),phase:'practice'};s=reduceGame(s,'select-1');
+ assert.equal(reduceGame(s,'up'),s);assert.equal(reduceGame(s,'select-4'),s);
+ for(const [v,c] of [['voltar','back'],['desfazer','undo'],['mover para baixo','down'],['confirmar','confirm'],['barulho','noise'],['reconhecimento','recognition']])assert.equal(normalizeCommand(v),c);
 });
 test('resposta incorreta também ensina e não cria ranking',()=>{
  const s=reduceGame(reduceGame(createInitialState(),'start'),'a');
