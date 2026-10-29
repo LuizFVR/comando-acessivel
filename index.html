@@ -4,7 +4,7 @@
  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
  <meta name="theme-color" content="#171734">
  <meta name="description" content="Uma experiência por voz para descobrir barreiras de acessibilidade motora no mundo digital.">
- <title>Comando Acessível</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./atividade.css">
+ <title>Comando Acessível</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./atividade.css"><link rel="stylesheet" href="./demo.css">
 </head>
 <body>
  <header class="site-header"><a href="./" class="brand"><span class="brand-mark" aria-hidden="true">c<span>•</span></span> comando acessível</a><span class="header-note">ACESSIBILIDADE MOTORA</span></header>
@@ -17,6 +17,12 @@
    <div class="voice-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="voice-core"><svg viewBox="0 0 100 100"><rect x="40" y="17" width="20" height="42" rx="10"/><path d="M29 46v5a21 21 0 0 0 42 0v-5M50 72v12M39 84h22"/></svg></div><span class="art-caption">“começar”</span><span class="art-tag">UM COMANDO, UMA POSSIBILIDADE</span></div>
   </section>
   <section id="experience" class="experience" hidden>
+   <section id="demo-panel" class="demo-panel" hidden aria-label="Controles da demonstração">
+    <p class="eyebrow">DEMONSTRAÇÃO PARA A TURMA</p>
+    <p>Os botões abaixo simulam os comandos de voz. Na atividade dos alunos, essas mesmas ações são feitas pela fala.</p>
+    <div id="demo-controls" class="demo-controls"></div>
+    <a href="./apresentador.html">Voltar ao QR Code</a>
+   </section>
    <div class="step-top"><p id="step-label" class="eyebrow"></p><span id="progress-text"></span></div><div class="progress" aria-hidden="true"><div id="progress-fill"></div></div>
    <div id="screen" aria-live="polite" aria-atomic="true"></div>
    <details class="command-help"><summary>Consultar comandos</summary><p id="commands-help"></p></details>

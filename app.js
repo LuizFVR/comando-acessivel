@@ -1,6 +1,7 @@
 import {CHALLENGES,TASKS,REFLECTIONS,createInitialState,normalizeCommand,reduceGame} from './game.js';
 import {createSpeechController} from './speech.js';
 const $=id=>document.getElementById(id);
+const isDemo=new URLSearchParams(location.search).get('demo')==='1';
 let state=createInitialState(),alternative=false,started=false,lastInput=0,blocked=false;
 const speech=createSpeechController({onTranscript:handleTranscript,onStatus:status=>{
  if(status==='listening')blocked=false;
@@ -19,6 +20,12 @@ function scene(type,improved=false){
  return `<div class="scene ${improved?'improved':''}" role="img" aria-label="${improved?accessible[type]:descriptions[type]}"><div class="scene-label">${improved?'DEPOIS · COM ALTERNATIVAS':'ANTES · BARREIRA'}</div><div class="fake-app" aria-hidden="true">${improved?better[type]:contents[type]}</div></div>`;
 }
 function instructions(){return {ready:'Diga “começar” para iniciar.',challenge:'Responda “opção A”, “opção B” ou “opção C”.',learning:'Diga “próximo” para continuar ou “voltar” para rever a pergunta.',practice:'Coloque “Preparar apresentação” em primeiro lugar. Diga “selecionar tarefa dois”, “mover para cima” e “confirmar”. Você também pode dizer “mover para baixo”, “desfazer” ou “voltar”.',reflection:'Diga “barulho”, “reconhecimento”, “comandos”, “outro” ou “sem dificuldade”. Depois diga “próximo”. A reflexão é opcional.'}[state.phase]||'';}
+function renderDemo(){
+ if(!isDemo)return;
+ const commands={ready:['começar'],challenge:['opção A','opção B','opção C'],learning:['próximo'],practice:['selecionar tarefa 1','selecionar tarefa 2','selecionar tarefa 3','mover para cima','mover para baixo','confirmar'],reflection:['barulho','reconhecimento','comandos','outro','sem dificuldade','próximo'],done:[]}[state.phase];
+ if(state.history.length&&state.phase!=='done')commands.push('voltar','desfazer');
+ $('demo-controls').replaceChildren(...commands.map(text=>{const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent=text;button.addEventListener('click',()=>handleTranscript(text,true));return button;}));
+}
 function render(){
  const c=CHALLENGES[state.index];
  $('step-label').textContent=({ready:'TESTE DE VOZ',practice:'AGORA É COM VOCÊ',reflection:'SUA EXPERIÊNCIA',done:'EXPERIÊNCIA CONCLUÍDA'})[state.phase]||c.label;
@@ -35,11 +42,12 @@ function render(){
   $('restart').addEventListener('click',()=>location.reload());
  }
  $('commands-help').textContent=state.phase==='done'?'Atividade encerrada. Use “Voltar ao início” para recomeçar.':instructions()+' “Voltar” e “desfazer” recuperam a ação anterior. “Repetir” mostra a orientação. “Rolar para baixo” e “rolar para cima” permitem ler a tela sem tocar.';
+ renderDemo();
 }
-function handleTranscript(text){
+function handleTranscript(text,simulated=false){
  if(state.phase==='done')return;
- const now=Date.now();if(now-lastInput<1000&&!alternative)return;lastInput=now;
- $('heard').textContent=`Você disse: “${String(text).slice(0,160)}”`;
+ const now=Date.now();if(now-lastInput<1000&&!alternative&&!simulated)return;lastInput=now;
+ $('heard').textContent=`${simulated?'Comando demonstrado':'Você disse'}: “${String(text).slice(0,160)}”`;
  const command=normalizeCommand(text);
  if(['scroll-down','scroll-up'].includes(command)){window.scrollBy({top:window.innerHeight*.65*(command==='scroll-down'?1:-1),behavior:'instant'});return;}
  if(command==='repeat'){$('feedback').textContent=instructions();return;}
@@ -47,6 +55,7 @@ function handleTranscript(text){
  if(next===state){$('feedback').textContent=state.phase==='practice'&&command==='confirm'?'Primeiro coloque “Preparar apresentação” na posição 1.':state.phase==='practice'&&['up','down'].includes(command)?'Selecione uma tarefa antes de mover e confira se há espaço nessa direção.':instructions();return;}
  const previousPhase=state.phase;state=next;$('feedback').textContent='';render();
  if(previousPhase!==state.phase)$('experience').scrollIntoView({block:'start',behavior:'instant'});
+ if(simulated)$('demo-controls').querySelector('button')?.focus({preventScroll:true});
 }
 function launch(useAlternative=false){
  if(!started){started=true;$('intro').hidden=true;$('experience').hidden=false;render();window.scrollTo({top:0,behavior:'instant'});}
@@ -54,6 +63,7 @@ function launch(useAlternative=false){
  blocked=false;alternative=false;$('status').textContent='Aguardando autorização do microfone…';$('resume').hidden=true;speech.start();
 }
 function enableAlternative(){
+ if(isDemo){alternative=true;speech.stop();$('alternative').hidden=true;$('voice-panel').hidden=true;$('help').hidden=true;return;}
  alternative=true;speech.stop();$('alternative').hidden=false;$('status').textContent='Modo alternativo • ditado ou texto';$('resume').hidden=true;
  $('feedback').textContent='Use o microfone do teclado ou digite o comando no campo abaixo.';$('command').focus();
 }
@@ -62,3 +72,4 @@ $('fallback').addEventListener('click',enableAlternative);$('resume').addEventLi
 $('alternative').addEventListener('submit',e=>{e.preventDefault();handleTranscript($('command').value);$('command').value='';});
 window.addEventListener('pagehide',()=>speech.stop());
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&started&&!alternative&&state.phase!=='done'){speech.stop();$('status').textContent='Microfone pausado • reative ao voltar';$('resume').hidden=false;}});
+if(isDemo){document.title='Demonstração · Comando Acessível';$('demo-panel').hidden=false;launch(true);}
